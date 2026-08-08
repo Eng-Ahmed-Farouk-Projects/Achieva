@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achieva | AI-Powered Student Growth Platform</title>
+    <meta name="description" content="Achieva helps students overcome procrastination, build discipline, stay motivated, and grow through AI guidance and real-life mentorship sessions.">
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        :root {
+            --light-beige: #F8F4EC;
+            --beige: #E8DFD0;
+            --dark-beige: #D4C5B0;
+            --dark-blue: #1A365D;
+            --medium-blue: #2A4A7A;
+            --yellow: #F6C90E;
+            --yellow-dark: #E0B400;
+            --text-dark: #2C3E50;
+            --text-light: #5A6A7A;
+            --white: #FFFFFF;
+            --shadow: 0 10px 30px rgba(26, 54, 93, 0.08);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--light-beige);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(248, 244, 236, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--beige);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 20px rgba(26, 54, 93, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+        }
+
+        .logo img {
+            height: 48px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--dark-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--yellow);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--dark-blue);
+            color: white !important;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            background: var(--medium-blue);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            cursor: pointer;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--beige) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(246, 201, 14, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--dark-blue);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.4rem;
+            line-height: 1.15;
+            color: var(--dark-blue);
+            margin-bottom: 24px;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--yellow-dark);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 36px;
+            max-width: 540px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--dark-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--medium-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(26, 54, 93, 0.25);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark-blue);
+            border: 2px solid var(--dark-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark-blue);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--beige);
+        }
+
+        .hero-card h3 {
+            color: var(--dark-blue);
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--beige);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--dark-blue), var(--yellow));
+            border-radius: 10px;
+            transition: width 1.5s ease;
+        }
+
+        /* ========== STATS ========== */
+        .stats {
+            padding: 60px 0;
+            background: var(--dark-blue);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--yellow);
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* ========== SECTION COMMON ========== */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header .label {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--dark-blue);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-size: 2.6rem;
+            color: var(--dark-blue);
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+        }
+
+        /* ========== WHAT WE DO ========== */
+        .what-we-do {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: var(--light-beige);
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+            border-color: var(--beige);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--dark-blue);
+            color: var(--yellow);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.35rem;
+            color: var(--dark-blue);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* ========== HOW IT WORKS ========== */
+        .how-it-works {
+            background: var(--light-beige);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: var(--dark-blue);
+            color: var(--yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(26, 54, 93, 0.2);
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ========== CORE PILLARS ========== */
+        .pillars {
+            background: white;
+        }
+
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .pillar-card {
+            background: var(--light-beige);
+            border-radius: var(--radius);
+            padding: 40px;
+            border-left: 6px solid var(--yellow);
+            transition: all 0.3s;
+        }
+
+        .pillar-card:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow);
+        }
+
+        .pillar-card.blue {
+            border-left-color: var(--dark-blue);
+        }
+
+        .pillar-card h3 {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pillar-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .pillar-list {
+            list-style: none;
+        }
+
+        .pillar-list li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .pillar-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--yellow-dark);
+            font-weight: bold;
+        }
+
+        /* ========== PROGRAMS ========== */
+        .programs {
+            background: var(--beige);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .program-header {
+            background: var(--dark-blue);
+            color: white;
+            padding: 28px;
+        }
+
+        .program-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .program-header p {
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+
+        .program-body {
+            padding: 28px;
+        }
+
+        .program-body ul {
+            list-style: none;
+        }
+
+        .program-body li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--beige);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .program-body li:last-child {
+            border-bottom: none;
+        }
+
+        .program-body li span {
+            width: 8px;
+            height: 8px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ========== BENEFITS ========== */
+        .benefits {
+            background: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 32px 24px;
+            border-radius: var(--radius);
+            background: var(--light-beige);
+            transition: all 0.3s;
+        }
+
+        .benefit-item:hover {
+            background: var(--dark-blue);
+            color: white;
+        }
+
+        .benefit-item:hover .benefit-icon {
+            background: var(--yellow);
+            color: var(--dark-blue);
+        }
+
+        .benefit-item:hover h3,
+        .benefit-item:hover p {
+            color: white;
+        }
+
+        .benefit-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--dark-blue);
+            color: var(--yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+            transition: all 0.3s;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.25rem;
+            color: var(--dark-blue);
+            margin-bottom: 12px;
+        }
+
+        .benefit-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ========== COMMUNITY ========== */
+        .community {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #0F2744 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(246, 201, 14, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .community .section-header h2,
+        .community .section-header p {
+            color: white;
+        }
+
+        .community .section-header .label {
+            background: var(--yellow);
+            color: var(--dark-blue);
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .community-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius);
+            padding: 32px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s;
+        }
+
+        .community-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-6px);
+        }
+
+        .community-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--yellow);
+        }
+
+        .community-card p {
+            opacity: 0.9;
+            font-size: 0.98rem;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            background: var(--light-beige);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            font-size: 5rem;
+            color: var(--beige);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--dark-blue);
+            color: var(--yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .author-info h4 {
+            color: var(--dark-blue);
+            font-size: 1rem;
+        }
+
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* ========== FAQ ========== */
+        .faq {
+            background: white;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--beige);
+            margin-bottom: 8px;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 24px 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .faq-question:hover {
+            color: var(--medium-blue);
+        }
+
+        .faq-icon {
+            font-size: 1.4rem;
+            transition: transform 0.3s;
+            color: var(--yellow-dark);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+            color: var(--text-light);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 24px;
+        }
+
+        /* ========== CTA ========== */
+        .cta {
+            background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.6rem;
+            color: var(--dark-blue);
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn-primary {
+            background: var(--dark-blue);
+            font-size: 1.15rem;
+            padding: 18px 40px;
+        }
+
+        /* ========== CONTACT ========== */
+        .contact {
+            background: var(--light-beige);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .contact-details .icon {
+            width: 48px;
+            height: 48px;
+            background: var(--dark-blue);
+            color: var(--yellow);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--beige);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--light-beige);
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--dark-blue);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            margin-bottom: 24px;
+            max-width: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background: var(--yellow);
+            color: var(--dark-blue);
+        }
+
+        .footer-col h4 {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            color: var(--yellow);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .footer-col a:hover {
+            opacity: 1;
+            color: var(--yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid,
+            .benefits-grid,
+            .testimonial-grid,
+            .community-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pillar-grid,
+            .programs-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--light-beige);
+                flex-direction: column;
+                padding: 24px;
+                gap: 16px;
+                border-bottom: 1px solid var(--beige);
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .benefits-grid,
+            .testimonial-grid,
+            .community-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <img src="logo.png" alt="Achieva Logo">
+                <span>Achieva</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#what-we-do">What We Do</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact" class="nav-cta">Get Started</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div>
+                <span class="hero-badge">AI + Real-Life Mentorship</span>
+                <h1>Transform Your Learning Journey with <span>Achieva</span></h1>
+                <p>Overcome procrastination, build lasting discipline, stay motivated, and grow both academically and personally — powered by AI guidance and real in-person mentorship sessions.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Start Your Journey</a>
+                    <a href="#what-we-do" class="btn btn-secondary">Discover More</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <h3>Your Progress Dashboard</h3>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Study Consistency</span>
+                            <span>87%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 87%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Focus Sessions</span>
+                            <span>74%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 74%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Habit Streak</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Goal Achievement</span>
+                            <span>68%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 68%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>12K+</h3>
+                    <p>Students Supported</p>
+                </div>
+                <div class="stat-item">
+                    <h3>850+</h3>
+                    <p>In-Person Sessions</p>
+                </div>
+                <div class="stat-item">
+                    <h3>96%</h3>
+                    <p>Report Higher Motivation</p>
+                </div>
+                <div class="stat-item">
+                    <h3>40+</h3>
+                    <p>Cities & Campuses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT WE DO -->
+    <section class="what-we-do" id="what-we-do">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">What We Do</span>
+                <h2>More Than a Study App</h2>
+                <p>Achieva combines intelligent AI tools with real human connection to help students build productive habits, stay consistent, and grow into their full potential.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Guidance</h3>
+                    <p>Personalized study plans, smart reminders, progress tracking, and adaptive motivation that learns how you work best.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👥</div>
+                    <h3>In-Person Mentorship</h3>
+                    <p>Students studying the same topic gather at the same time for live group mentoring sessions with experienced guides.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Soft Skills Development</h3>
+                    <p>Workshops and programs focused on communication, leadership, emotional intelligence, time management, and resilience.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💻</div>
+                    <h3>Tech Topics & Skills</h3>
+                    <p>Practical sessions on relevant technologies, tools, and industry knowledge that prepare students for the real world.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📅</div>
+                    <h3>Habit & Time Mastery</h3>
+                    <p>Structured systems that help you defeat procrastination, build consistency, and manage your time with purpose.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Supportive Community</h3>
+                    <p>Join a network of motivated students, mentors, and peers who grow together through shared challenges and wins.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">How It Works</span>
+                <h2>Your Path to Consistent Growth</h2>
+                <p>A simple, powerful process that combines digital intelligence with real-world accountability.</p>
+            </div>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Join Achieva</h3>
+                    <p>Create your profile and tell us about your goals, challenges, and study preferences.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Get Personalized Plan</h3>
+                    <p>Our AI builds a tailored study and habit system designed specifically for you.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Attend Live Sessions</h3>
+                    <p>Join in-person mentorship groups where students studying the same material learn together.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">4</div>
+                    <h3>Grow & Track Progress</h3>
+                    <p>Stay consistent with AI support, community energy, and measurable results over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE PILLARS -->
+    <section class="pillars" id="pillars">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">Our Core Pillars</span>
+                <h2>Digital Intelligence + Human Connection</h2>
+                <p>We believe lasting change happens when smart technology meets real-life experience.</p>
+            </div>
+            <div class="pillar-grid">
+                <div class="pillar-card fade-in">
+                    <h3>🤖 AI Platform</h3>
+                    <p>A powerful digital companion that helps you stay organized, focused, and motivated every single day.</p>
+                    <ul class="pillar-list">
+                        <li>Personalized study schedules</li>
+                        <li>Smart habit tracking & streaks</li>
+                        <li>Progress analytics & insights</li>
+                        <li>Adaptive motivation messages</li>
+                        <li>Goal setting & milestone tracking</li>
+                        <li>Focus mode & productivity tools</li>
+                    </ul>
+                </div>
+                <div class="pillar-card blue fade-in">
+                    <h3>🏫 Physical Mentorship</h3>
+                    <p>Real students, same subject, same moment — guided by mentors in focused in-person sessions.</p>
+                    <ul class="pillar-list">
+                        <li>Subject-specific group mentoring</li>
+                        <li>Live collaboration & accountability</li>
+                        <li>Immediate feedback & guidance</li>
+                        <li>Peer learning energy</li>
+                        <li>Discipline through shared commitment</li>
+                        <li>Stronger social connections</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMS -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">Programs & Activities</span>
+                <h2>Grow Beyond Academics</h2>
+                <p>We offer structured programs that develop both hard skills and the soft skills that truly shape your future.</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card fade-in">
+                    <div class="program-header">
+                        <h3>Soft Skills Academy</h3>
+                        <p>Build the human skills that make the difference</p>
+                    </div>
+                    <div class="program-body">
+                        <ul>
+                            <li><span></span> Communication & Public Speaking</li>
+                            <li><span></span> Leadership & Team Collaboration</li>
+                            <li><span></span> Emotional Intelligence & Resilience</li>
+                            <li><span></span> Time Management & Prioritization</li>
+                            <li><span></span> Critical Thinking & Decision Making</li>
+                            <li><span></span> Networking & Personal Branding</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-header">
+                        <h3>Tech Topics Series</h3>
+                        <p>Practical knowledge for the modern world</p>
+                    </div>
+                    <div class="program-body">
+                        <ul>
+                            <li><span></span> Introduction to AI & Machine Learning</li>
+                            <li><span></span> Productivity Tools & Digital Workflows</li>
+                            <li><span></span> Data Literacy for Students</li>
+                            <li><span></span> Coding Fundamentals & Problem Solving</li>
+                            <li><span></span> Digital Collaboration & Remote Work Skills</li>
+                            <li><span></span> Emerging Technologies Overview</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-header">
+                        <h3>Study Mastery Sessions</h3>
+                        <p>Subject-focused group mentoring</p>
+                    </div>
+                    <div class="program-body">
+                        <ul>
+                            <li><span></span> Mathematics & Quantitative Subjects</li>
+                            <li><span></span> Sciences (Physics, Chemistry, Biology)</li>
+                            <li><span></span> Languages & Literature</li>
+                            <li><span></span> Business & Economics</li>
+                            <li><span></span> Exam Preparation Intensive</li>
+                            <li><span></span> Research & Academic Writing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-header">
+                        <h3>Community Events</h3>
+                        <p>Connection, inspiration, and shared growth</p>
+                    </div>
+                    <div class="program-body">
+                        <ul>
+                            <li><span></span> Monthly Motivation Workshops</li>
+                            <li><span></span> Peer Accountability Circles</li>
+                            <li><span></span> Career Exploration Talks</li>
+                            <li><span></span> Student Success Stories Nights</li>
+                            <li><span></span> Wellness & Mindfulness Sessions</li>
+                            <li><span></span> Campus & City Meetups</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">Why Achieva</span>
+                <h2>Real Results for Real Students</h2>
+                <p>We don’t just help you study better — we help you become someone who consistently shows up for their goals.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🔥</div>
+                    <h3>Defeat Procrastination</h3>
+                    <p>Structured systems and live accountability make it harder to delay and easier to start.</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">💪</div>
+                    <h3>Build Real Discipline</h3>
+                    <p>Consistent habits formed through both AI reminders and physical presence create lasting change.</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Stay Motivated Longer</h3>
+                    <p>Personalized encouragement plus community energy keep your drive alive through tough periods.</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">📚</div>
+                    <h3>Study Smarter</h3>
+                    <p>Focus on the same material with peers and mentors for deeper understanding and better retention.</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Meaningful Connections</h3>
+                    <p>Meet students and mentors who share your ambitions and support your growth journey.</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Future Clarity</h3>
+                    <p>Soft skills, tech knowledge, and mentoring help you see clearer paths for your future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section class="community" id="community">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">Our Community</span>
+                <h2>You Don’t Have to Do It Alone</h2>
+                <p>Achieva turns learning from an isolated struggle into a shared journey of growth, support, and real connection.</p>
+            </div>
+            <div class="community-grid">
+                <div class="community-card fade-in">
+                    <h3>Study Circles</h3>
+                    <p>Small groups of students working on the same subjects, meeting regularly for focused sessions and mutual accountability.</p>
+                </div>
+                <div class="community-card fade-in">
+                    <h3>Mentor Network</h3>
+                    <p>Experienced mentors who guide sessions, share strategies, and help students navigate both academic and personal challenges.</p>
+                </div>
+                <div class="community-card fade-in">
+                    <h3>Growth Events</h3>
+                    <p>Workshops, talks, and meetups that expand skills, spark inspiration, and strengthen the Achieva community bond.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">Student Stories</span>
+                <h2>What Students Are Saying</h2>
+                <p>Real experiences from students who transformed their approach to learning and life.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">Achieva completely changed how I study. The in-person sessions made me feel accountable, and the AI kept me on track between meetings. I finally stopped procrastinating.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SA</div>
+                        <div class="author-info">
+                            <h4>Sara A.</h4>
+                            <p>University Student • Computer Science</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">The soft skills workshops were a game changer. I gained confidence in presentations and learned how to manage my time properly. The community feels like family.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MK</div>
+                        <div class="author-info">
+                            <h4>Mohamed K.</h4>
+                            <p>High School Senior</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">Studying the same topics together with a mentor made everything click faster. I went from feeling lost to having a clear system and real progress every week.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LR</div>
+                        <div class="author-info">
+                            <h4>Layla R.</h4>
+                            <p>Medical Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">FAQ</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about Achieva and how it works.</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        What makes Achieva different from other study apps?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Unlike pure digital apps, Achieva combines AI-powered tools with real in-person mentorship sessions. Students studying the same material gather together and receive live guidance, creating accountability, deeper learning, and genuine community that digital-only solutions cannot match.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Who can join Achieva?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Achieva is designed for high school and university students who want to improve their study habits, stay motivated, build discipline, and develop both academic and soft skills. Whether you struggle with procrastination or simply want a stronger support system, you are welcome.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        How do the in-person mentorship sessions work?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Students who are studying the same subject or topic are grouped together and meet at scheduled times in physical locations. A mentor guides the session, answers questions, keeps the group focused, and helps everyone progress on the material in real time.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        What kind of soft skills and tech topics do you cover?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Soft skills include communication, leadership, emotional intelligence, time management, and more. Tech topics cover practical areas such as AI basics, productivity tools, data literacy, coding fundamentals, and emerging technologies — all designed to prepare students for real-world success.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Is Achieva available in my city?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        We are expanding rapidly across campuses and cities. Join the waitlist or contact us to check availability in your area and to be notified when new locations and sessions open near you.
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        How does the AI platform support me between sessions?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        The AI helps you stay consistent with personalized schedules, habit tracking, progress insights, focus tools, and motivational guidance tailored to your goals and behavior patterns — so you keep moving forward even when you’re studying alone.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Learning?</h2>
+            <p>Join thousands of students who are building discipline, staying motivated, and growing with Achieva’s unique blend of AI and real-life mentorship.</p>
+            <a href="#contact" class="btn btn-primary">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="label">Contact Us</span>
+                <h2>Let’s Start the Conversation</h2>
+                <p>Have questions or ready to join? Reach out — we’d love to hear from you.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>Get in Touch</h3>
+                    <p>Whether you’re a student, parent, mentor, or partner, our team is here to help you take the next step with Achieva.</p>
+                    <ul class="contact-details">
+                        <li>
+                            <div class="icon">📧</div>
+                            <div>
+                                <strong>Email</strong><br>
+                                hello@achieva.com
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon">📱</div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +1 (555) 123-4567
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon">📍</div>
+                            <div>
+                                <strong>Location</strong><br>
+                                Expanding across campuses & cities
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form fade-in">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="you@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">I am a...</label>
+                            <select id="role" name="role">
+                                <option value="student">Student</option>
+                                <option value="parent">Parent</option>
+                                <option value="mentor">Potential Mentor</option>
+                                <option value="partner">Partner / Organization</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required placeholder="Tell us how we can help..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <img src="logo.png" alt="Achieva Logo" style="height: 40px;">
+                        <span>Achieva</span>
+                    </a>
+                    <p>AI-powered guidance combined with real-life mentorship to help students build discipline, stay motivated, and grow.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                        <a href="#" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#what-we-do">What We Do</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#community">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#pillars">Our Approach</a></li>
+                        <li><a href="#benefits">Why Achieva</a></li>
+                        <li><a href="#testimonials">Stories</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Achieva. All rights reserved.</p>
+                <p>Built for students who want more than just better grades — they want real growth.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.textContent = '☰';
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+                // Open clicked if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Thank you, ${name}! Your message has been received. We'll get back to you soon.`);
+            this.reset();
+        });
+
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Smooth scroll for older browsers support
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const position = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: position,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
